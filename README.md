@@ -59,3 +59,6 @@ The software provides a graphical interface where users can:
 
 - No automated sorting/reporting – Finding all assets from a specific manufacturer is difficult in traditional methods.
 
+## UML Diagram
+
+![image](https://github.com/user-attachments/assets/01da68b5-2de1-4ca7-a50c-59f1e7081f35)
