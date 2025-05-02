@@ -13,4 +13,12 @@ class SoftwareAsset extends Asset {
         System.out.println("Software Asset ID: " + assetID + ", Name: " + name + ", Version: " + version + ", License Key: " + licenseKey);
     }
 
+    public String getVersion() {
+        return version;
+    }
+
+    public String getLicenseKey() {
+        return licenseKey;
+    }
+
 }

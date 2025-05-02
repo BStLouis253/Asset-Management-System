@@ -1,0 +1,3 @@
+Hardware,001,Laptop-1,Dell,XPS400,04-13-2024,true,Maryland Office,04-13-2027
+Software,002,Word,Microsoft,Home and Office,06-22-2021,true,2019,null
+Software,003,Excel,Microsoft,Home and Office,06-22-2021,true,2019,null

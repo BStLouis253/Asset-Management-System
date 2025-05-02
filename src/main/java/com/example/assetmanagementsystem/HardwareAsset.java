@@ -14,4 +14,11 @@ class HardwareAsset extends Asset {
         System.out.println("Hardware Asset ID: " + assetID + ", Name: " + name + ", Location: " + location + ", Maintenance Date: " + maintenanceDate);
     }
 
+    public String getLocation() {
+        return location;
+    }
+
+    public String getMaintenanceDate() {
+        return maintenanceDate;
+    }
 }
