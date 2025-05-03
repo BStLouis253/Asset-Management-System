@@ -59,4 +59,5 @@ The software provides a graphical interface where users can:
 
 ## UML Diagram
 
-![image](https://github.com/user-attachments/assets/01da68b5-2de1-4ca7-a50c-59f1e7081f35)
+![AssetManagementSystem drawio](https://github.com/user-attachments/assets/c0b1615a-c653-47b3-b5af-64f61b587e43)
+
