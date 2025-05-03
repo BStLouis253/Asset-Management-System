@@ -21,6 +21,7 @@ public class AssetManagementSystem extends Application {
     private final Map<String, TableColumn<Asset, String>> columnMap = new TreeMap<>();
     private final Deque<List<Asset>> undoStack = new ArrayDeque<>();
     private final Deque<List<Asset>> redoStack = new ArrayDeque<>();
+    private final AssetBST assetBST = new AssetBST();
     private int nextAssetID = 1;
 
     @Override
@@ -43,6 +44,8 @@ public class AssetManagementSystem extends Application {
                 saveStateForUndo();
                 List<Asset> loadedAssets = FileManager.loadAssetsFromFile("SavedAssets.txt");
                 assetManager.getAssets().clear();
+                assetBST.clear();
+                for (Asset asset : loadedAssets) assetBST.insert(asset);
                 assetManager.getAssets().addAll(loadedAssets);
                 assetTable.setItems(FXCollections.observableArrayList(assetManager.getAssets()));
                 updateNextAssetID();
@@ -69,8 +72,11 @@ public class AssetManagementSystem extends Application {
         Button deleteButton = new Button("Delete Selected Asset");
         deleteButton.setOnAction(e -> deleteSelectedAsset());
 
+        Button searchButton = new Button("Search by Asset ID");
+        searchButton.setOnAction(e -> showSearchDialog());
+
         HBox topBar = new HBox(10, addHardwareButton, addSoftwareButton, loadAssetsButton, saveAssetsButton,
-                columnSelector, undoButton, redoButton, deleteButton);
+                columnSelector, undoButton, redoButton, deleteButton, searchButton);
         topBar.setPadding(new Insets(10));
 
         VBox root = new VBox(10, topBar, assetTable);
@@ -190,7 +196,36 @@ public class AssetManagementSystem extends Application {
         result.ifPresent(asset -> {
             assetManager.addAsset(asset);
             assetTable.getItems().add(asset);
+            assetBST.insert(asset);
         });
+    }
+
+    private void showSearchDialog() {
+        Dialog<Void> dialog = new Dialog<>();
+        dialog.setTitle("Search Assets by Asset ID");
+
+        VBox box = new VBox(10);
+        TextField searchField = new TextField();
+        Button searchBtn = new Button("Search");
+
+        TableView<Asset> searchResults = new TableView<>();
+        searchResults.getColumns().setAll(assetTable.getColumns());
+
+        searchBtn.setOnAction(e -> {
+            String assetID = searchField.getText().trim();
+            Asset result = assetBST.search(assetID);
+            if (result != null) {
+                searchResults.setItems(FXCollections.observableArrayList(result));
+            } else {
+                searchResults.setItems(FXCollections.observableArrayList());
+                showError("No asset found with that ID.");
+            }
+        });
+
+        box.getChildren().addAll(new Label("Enter Asset ID:"), searchField, searchBtn, searchResults);
+        dialog.getDialogPane().setContent(box);
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+        dialog.showAndWait();
     }
 
     private void updateNextAssetID() {
@@ -234,6 +269,7 @@ public class AssetManagementSystem extends Application {
             saveStateForUndo();
             assetManager.getAssets().remove(selected);
             assetTable.getItems().remove(selected);
+            assetBST.delete(selected.getName());
         } else {
             showError("Please select an asset to delete.");
         }
