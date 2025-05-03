@@ -20,9 +20,9 @@ The software is designed to streamline asset management by:
 
 - Maintaining a centralized database of all company assets.
 
-- Tracking key hardware and software attributes
+- Tracking key hardware and software attributes.
 
-- Allowing addition, removal, and updating of assets.
+- Allowing addition and removal of assets.
 
 - Enabling sorting and searching of assets based on different attributes.
 
@@ -45,8 +45,6 @@ The software provides a graphical interface where users can:
 - Load and save assets to disk/file.
   
 - Remove retired assets
-  
-- Generate reports
   
 
 **Why would anyone want to use the software over existing processes?**
